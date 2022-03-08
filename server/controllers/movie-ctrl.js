@@ -11,7 +11,7 @@ createMovie = (req, res) => {
     }
 
     const movie = new Movie(body)
-
+    console.log(movie);
     if (!movie) {
         return res.status(400).json({ success: false, error: err })
     }
