@@ -22,16 +22,22 @@ const Delete = styled.div`
 `
 
 class UpdateMovie extends Component {
-    updateUser = event => {
-        event.preventDefault()
-
-        //window.location.href = `/movies/update/${this.props.id}`
-    }
-
     render() {
-        return <Link to="/movies/update/${this.props.id}" className="nav-link">Update</Link>
+        return <Link to={{pathname: `/movies/update/${this.props.id}`}}>Update</Link>
     }
 }
+
+// class UpdateMovie extends Component {
+//     updateUser = event => {
+//         event.preventDefault()
+
+//         window.location.href = `/movies/update/${this.props.id}`
+//     }
+
+//     render() {
+//         return <Link to="/movies/update/${this.props.id}" className="nav-link">Update</Link>
+//     }
+// }
 
 class DeleteMovie extends Component {
     deleteUser = event => {
