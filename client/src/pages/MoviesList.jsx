@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table-6'
 import api from '../api'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
@@ -10,7 +11,7 @@ const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
 `
 
-const Update = styled.div`
+const Update = styled.a`
     color: #ef9b0f;
     cursor: pointer;
 `
@@ -24,11 +25,11 @@ class UpdateMovie extends Component {
     updateUser = event => {
         event.preventDefault()
 
-        window.location.href = `/movies/update/${this.props.id}`
+        //window.location.href = `/movies/update/${this.props.id}`
     }
 
     render() {
-        return <Update onClick={this.updateUser}>Update</Update>
+        return <Link to="/movies/update/${this.props.id}" className="nav-link">Update</Link>
     }
 }
 

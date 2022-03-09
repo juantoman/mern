@@ -14,17 +14,15 @@ const Nav = styled.nav.attrs({
     margin-bottom: 20 px;
 `
 
-class NavBar extends Component {
-    render() {
-        return (
-            <Container>
-                <Nav>
-                    <Logo />
-                    <Links />
-                </Nav>
-            </Container>
-        )
-    }
+function NavBar() {
+    return (
+        <Container>
+            <Nav>
+                <Logo />
+                <Links />
+            </Nav>
+        </Container>
+    )
 }
 
 export default NavBar
