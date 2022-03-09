@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import api from '../api'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
@@ -112,7 +113,7 @@ class MoviesInsert extends Component {
                 />
 
                 <Button onClick={this.handleIncludeMovie}>Add Movie</Button>
-                <CancelButton href={'/movies/list'}>Cancel</CancelButton>
+                <CancelButton><Link to="/movies/list">Cancel</Link></CancelButton>
             </Wrapper>
         )
     }

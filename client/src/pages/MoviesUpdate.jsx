@@ -1,82 +1,69 @@
 import React, { Component, useState, useEffect } from 'react'
 import api from '../api'
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
+const Title = styled.h1.attrs({
+    className: 'h1',
+})``
+
+const Wrapper = styled.div.attrs({
+    className: 'form-group',
+})`
+    margin: 0 30px;
+`
+
+const Label = styled.label`
+    margin: 5px;
+`
+
+const InputText = styled.input.attrs({
+    className: 'form-control',
+})`
+    margin: 5px;
+`
+
+const Button = styled.button.attrs({
+    className: `btn btn-primary`,
+})`
+    margin: 15px 15px 15px 5px;
+`
+
+const CancelButton = styled.a.attrs({
+    className: `btn btn-danger`,
+})`
+    margin: 15px 15px 15px 5px;
+`
+
+//
+
 const MoviesUpdate = () => {
   const { id } = useParams();
+  const [movie, setMovie] = useState({});
 
-  const Title = styled.h1.attrs({
-      className: 'h1',
-  })``
-
-  const Wrapper = styled.div.attrs({
-      className: 'form-group',
-  })`
-      margin: 0 30px;
-  `
-
-  const Label = styled.label`
-      margin: 5px;
-  `
-
-  const InputText = styled.input.attrs({
-      className: 'form-control',
-  })`
-      margin: 5px;
-  `
-
-  const Button = styled.button.attrs({
-      className: `btn btn-primary`,
-  })`
-      margin: 15px 15px 15px 5px;
-  `
-
-  const CancelButton = styled.a.attrs({
-      className: `btn btn-danger`,
-  })`
-      margin: 15px 15px 15px 5px;
-  `
-
-  //const movie = await api.getMovieById(id)
-
-  useEffect(() => {
-     document.title = `You clicked ${movie.name} times`;
-   });
-
-  const movieInicial = {
-      id: id,
-      name: 'PP',
-      rating: '1',
-      time: '10',
-  }
-
-  const [movie, setMovie] = useState(movieInicial);
-
-  const handleChangeInputName = (event) => {
-    const { name, value } = event.target;
-    setMovie({ id: movie.id, name: value, rating: movie.rating, time: movie.time });
-  }
-
-  const handleChangeInputRating = (event) => {
-    const { rating, value } = event.target;
-    setMovie({ id: movie.id, name: movie.name, rating: value, time: movie.time });
-  }
-
-  const handleChangeInputTime = (event) => {
-    const { time, value } = event.target;
-    setMovie({ id: movie.id, name: movie.name, rating: movie.rating, time: value });
-  }
+   useEffect(() => {
+     async function fetchMyAPI() {
+      let loadedMovie = await api.getMovieById(id)
+      setMovie(loadedMovie.data.data)
+    }
+     fetchMyAPI()
+   },[]);
 
   const handleUpdateMovie = async () => {
-      const { id, name, rating, time } = movie
-      const arrayTime = time.split('/')
+      const { _id, name, rating, time } = movie
+      const arrayTime = time
       const payload = { name, rating, time: arrayTime }
 
       await api.updateMovieById(id, payload).then(res => {
           window.alert(`Movie updated successfully`)
       })
+  }
+
+  const gestionarCampo = (event) => {
+    const { name, value } = event.target;
+    setMovie({ ...movie, [name]: value });
   }
 
   return (
@@ -86,31 +73,34 @@ const MoviesUpdate = () => {
         <Label>Name: </Label>
         <InputText
             type="text"
+            name="name"
             value={movie.name}
-            onChange={handleChangeInputName}
+            onChange={gestionarCampo}
         />
 
         <Label>Rating: </Label>
         <InputText
             type="number"
+            name="rating"
             step="0.1"
             lang="en-US"
             min="0"
             max="10"
             pattern="[0-9]+([,\.][0-9]+)?"
             value={movie.rating}
-            onChange={handleChangeInputRating}
+            onChange={gestionarCampo}
         />
 
         <Label>Time: </Label>
         <InputText
             type="text"
+            name="time"
             value={movie.time}
-            onChange={handleChangeInputTime}
+            onChange={gestionarCampo}
         />
 
         <Button onClick={handleUpdateMovie}>Update Movie</Button>
-        <CancelButton href={'/movies/list'}>Cancel</CancelButton>
+        <CancelButton><Link to="/movies/list">Cancel</Link></CancelButton>
     </Wrapper>
   )
 }
