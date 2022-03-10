@@ -5,7 +5,7 @@ import Logo from './Logo'
 import Links from './Links'
 
 const Container = styled.div.attrs({
-    className: 'container',
+    className: 'container-fluid',
 })``
 
 const Nav = styled.nav.attrs({
@@ -22,6 +22,7 @@ function NavBar() {
                 <Links />
             </Nav>
         </Container>
+
     )
 }
 
