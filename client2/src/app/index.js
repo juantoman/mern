@@ -15,7 +15,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <NavBar />
           <Routes>
-              <Route path="/movies/list" element={<MoviesList/>} />
+              <Route path="/movies/list" exact element={<MoviesList/>} />
               <Route path="/movies/create" exact element={<MoviesInsert/>} />
               <Route path="/movies/update/:id" exact element={<MoviesUpdate/>} />
           </Routes>
