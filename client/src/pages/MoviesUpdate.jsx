@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from 'react'
 import api from '../api'
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom'
+import Prova from './Prova'
 
 import styled from 'styled-components'
 
@@ -101,6 +102,7 @@ const MoviesUpdate = () => {
 
         <Button onClick={handleUpdateMovie}>Update Movie</Button>
         <CancelButton><Link to="/movies/list">Cancel</Link></CancelButton>
+        <Prova/>
     </Wrapper>
   )
 }

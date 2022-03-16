@@ -37,6 +37,7 @@ const CancelButton = styled.a.attrs({
 `
 
 class MoviesInsert extends Component {
+
     constructor(props) {
         super(props)
 

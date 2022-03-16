@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { NavBar, Layout } from '../components'
-import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages'
+import { NavBar } from '../components'
+//import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,7 +15,6 @@ function App() {
                 <Route exact path="/movies/create" element={<MoviesInsert/>} />
                 <Route path="/movies/update/:id" element={<MoviesUpdate/>} />
             </Routes>
-            <Layout/>
         </Router>
     )
 }

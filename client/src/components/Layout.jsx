@@ -5,11 +5,6 @@ const Layout = () => {
 
   return (
     <div class="container">
-      <nav class="navbar fixed-top navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Sticky top</a>
-        </div>
-      </nav>
       <div class="row row-cols-auto">
         <div class="col">
           <div class="card text-center" style={{width:"18rem"}}>
