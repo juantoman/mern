@@ -11,13 +11,17 @@ const MoviesInsert = () => {
   }
 
   const handleIncludeMovie = async () => {
-    const { _id, name, rating, time } = movie
+    const { name, rating, time } = movie
     const arrayTime = time
     const payload = { name, rating, time: arrayTime }
 
     await api.insertMovie(payload).then(res => {
         window.alert(`Movie inserted successfully`)
-        //setMovie();
+        setMovie({
+          name:"",
+          rating:"",
+          time:""
+        })
     })
 }
 
