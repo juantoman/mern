@@ -5,41 +5,19 @@ import { Link } from 'react-router-dom'
 const MoviesInsert = () => {
   const [movie, setMovie] = useState({});
 
-   useEffect(() => {
-     async function fetchMyAPI() {
-      let loadedMovie = await api.getMovieById(id)
-      setMovie(loadedMovie.data.data)
-    }
-     fetchMyAPI()
-   },[]);
-
-  const handleUpdateMovie = async () => {
-      const { _id, name, rating, time } = movie
-      const arrayTime = time
-      const payload = { name, rating, time: arrayTime }
-
-      await api.updateMovieById(id, payload).then(res => {
-          window.alert(`Movie updated successfully`)
-      })
-  }
-
   const gestionarCampo = (event) => {
     const { name, value } = event.target;
     setMovie({ ...movie, [name]: value });
   }
 
   const handleIncludeMovie = async () => {
-    const { name, rating, time } = this.state
-    const arrayTime = time.split('/')
+    const { _id, name, rating, time } = movie
+    const arrayTime = time
     const payload = { name, rating, time: arrayTime }
 
     await api.insertMovie(payload).then(res => {
         window.alert(`Movie inserted successfully`)
-        this.setState({
-            name: '',
-            rating: '',
-            time: '',
-        })
+        //setMovie();
     })
 }
 
