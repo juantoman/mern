@@ -3,6 +3,25 @@ import { Link } from 'react-router-dom'
 import api from '../api'
 import {useQuery} from 'react-query'
 
+const DeleteMovie = () => {
+    const deleteUser = event => {
+      //event.preventDefault()
+
+      if (
+          window.confirm(
+              `Do tou want to delete the movie ${props.id} permanently?`,
+          )
+      ) {
+          api.deleteMovieById(props.id)
+          window.location.reload()
+      }
+    }
+
+    return (
+        <button onClick={deleteUser()}>Delete</button>
+    )
+}
+
 const MoviesList = () => {
 
   const {data, error, isError, isLoading } = useQuery('movies', api.getAllMovies)
@@ -36,7 +55,9 @@ const MoviesList = () => {
                     <td>{movie.name}</td>
                     <td>{movie.rating}</td>
                     <td>{movie.time}</td>
-                    <td><button>Delete</button></td>
+                    <td>
+                      <DeleteMovie id={movie._id} />
+                    </td>
                     <td><button>Update</button></td>
                   </tr>
                 )
