@@ -3,22 +3,20 @@ import { Link } from 'react-router-dom'
 import api from '../api'
 import {useQuery} from 'react-query'
 
-const DeleteMovie = () => {
-    const deleteUser = event => {
-      //event.preventDefault()
-
+const DeleteMovie = props => {
+    const deleteMovie = () => {
       if (
-          window.confirm(
-              `Do tou want to delete the movie ${props.id} permanently?`,
-          )
-      ) {
-          api.deleteMovieById(props.id)
-          window.location.reload()
-      }
+        window.confirm(
+            `Do tou want to delete the movie ${props.id} permanently?`,
+        )
+    ) {
+        api.deleteMovieById(props.id)
+        //window.location.reload()
+    }
     }
 
     return (
-        <button onClick={deleteUser()}>Delete</button>
+        <button onClick={deleteMovie}>Delete</button>
     )
 }
 

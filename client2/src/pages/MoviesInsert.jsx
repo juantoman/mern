@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api'
-import { useParams } from 'react-router';
 import { Link } from 'react-router-dom'
 
 const MoviesInsert = () => {
-  const { id } = useParams();
   const [movie, setMovie] = useState({});
 
    useEffect(() => {
@@ -30,11 +28,26 @@ const MoviesInsert = () => {
     setMovie({ ...movie, [name]: value });
   }
 
+  const handleIncludeMovie = async () => {
+    const { name, rating, time } = this.state
+    const arrayTime = time.split('/')
+    const payload = { name, rating, time: arrayTime }
+
+    await api.insertMovie(payload).then(res => {
+        window.alert(`Movie inserted successfully`)
+        this.setState({
+            name: '',
+            rating: '',
+            time: '',
+        })
+    })
+}
+
   return (
     <div className='form-group' style={{marginTop:'200px'}}>
         <h1>Create Movie</h1>
 
-        <label>Name: </label>
+        {/* <label>Name: </label>
         <input
             type="text"
             name="name"
@@ -64,7 +77,25 @@ const MoviesInsert = () => {
         />
 
         <button onClick={handleUpdateMovie}>Update Movie</button>
-        <button><Link to="/movies/list">Cancel</Link></button>
+        <button><Link to="/movies/list">Cancel</Link></button> */}
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="inputName" name="name" value={movie.name} onChange={gestionarCampo} />
+          </div>
+          <div class="col-md-12">
+            <label for="inputRating" class="form-label">Rating</label>
+            <input type="number" class="form-control" id="inputRating" name="rating" value={movie.rating} onChange={gestionarCampo} />
+          </div>
+          <div class="col-12">
+            <label for="inputTime" class="form-label">Time</label>
+            <input type="text" class="form-control" id="inputTime" name="time" value={movie.time} onChange={gestionarCampo} />
+          </div>
+          <div class="col-12">
+            <button type="button" class="btn btn-primary" onClick={handleIncludeMovie}>Create</button>
+            <Link to="/movies/list"><button type="button" class="btn btn-primary">Cancel</button></Link>
+          </div>
+        </form>
     </div>
   )
 }
