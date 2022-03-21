@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api'
 import { Link } from 'react-router-dom'
+import { useMutation } from 'react-query'
 
 const MoviesInsert = () => {
   const [movie, setMovie] = useState({});
-
+  const {isLoading, isError, error, mutate} = useMutation(api.insertMovie, {retry: 3})
   const gestionarCampo = (event) => {
     const { name, value } = event.target;
     setMovie({ ...movie, [name]: value });
@@ -15,14 +16,16 @@ const MoviesInsert = () => {
     const arrayTime = time
     const payload = { name, rating, time: arrayTime }
 
-    await api.insertMovie(payload).then(res => {
+    mutate(payload)
+    window.alert(`Movie inserted successfully`)
+    {/*await api.insertMovie(payload).then(res => {
         window.alert(`Movie inserted successfully`)
         setMovie({
           name:"",
           rating:"",
           time:""
         })
-    })
+    })*/}
 }
 
   return (

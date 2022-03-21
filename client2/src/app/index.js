@@ -3,11 +3,23 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider} from 'react-query'
 
 import { NavBar } from '../components'
-import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages'
+import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages/Pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const queryClient = new QueryClient()
+
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       refetchOnWindowFocus: true,
+//       refetchOnmount: true,
+//       refetchOnReconnect: true,
+//       retry: true,
+//       staleTime: 1000,
+//     },
+//   },
+// });
 
 function App() {
     return (

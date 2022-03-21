@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import api from '../api'
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom'
+import { useMutation } from 'react-query'
 
 const MoviesUpdate = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
+  const {isLoading, isError, error, mutate} = useMutation(api.updateMovieById, {retry: 3})
 
    useEffect(() => {
      async function fetchMyAPI() {
@@ -20,9 +22,11 @@ const MoviesUpdate = () => {
       const arrayTime = time
       const payload = { name, rating, time: arrayTime }
 
-      await api.updateMovieById(id, payload).then(res => {
-          window.alert(`Movie updated successfully`)
-      })
+      mutate({id:id,payload:payload})
+      window.alert(`Movie updated successfully`)
+      // await api.updateMovieById(id, payload).then(res => {
+      //     window.alert(`Movie updated successfully`)
+      // })
   }
 
   const gestionarCampo = (event) => {
@@ -34,7 +38,7 @@ const MoviesUpdate = () => {
     <div className='form-group' style={{marginTop:'200px'}}>
         <h1>Update Movie</h1>
 
-        <label>Name: </label>
+        {/*<label>Name: </label>
         <input
             type="text"
             name="name"
@@ -64,7 +68,26 @@ const MoviesUpdate = () => {
         />
 
         <button onClick={handleUpdateMovie}>Update Movie</button>
-        <button><Link to="/movies/list">Cancel</Link></button>
+        <button><Link to="/movies/list">Cancel</Link></button>*/}
+
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="inputName" name="name" value={movie.name} onChange={gestionarCampo} />
+          </div>
+          <div class="col-md-12">
+            <label for="inputRating" class="form-label">Rating</label>
+            <input type="number" class="form-control" id="inputRating" name="rating" value={movie.rating} onChange={gestionarCampo} />
+          </div>
+          <div class="col-12">
+            <label for="inputTime" class="form-label">Time</label>
+            <input type="text" class="form-control" id="inputTime" name="time" value={movie.time} onChange={gestionarCampo} />
+          </div>
+          <div class="col-12">
+            <button type="button" class="btn btn-primary" onClick={handleUpdateMovie}>Update</button>
+            <Link to="/movies/list"><button type="button" class="btn btn-primary">Cancel</button></Link>
+          </div>
+        </form>
     </div>
   )
 }
