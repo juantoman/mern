@@ -9,6 +9,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 const DeleteMovie = props => {
 
@@ -27,13 +30,13 @@ const DeleteMovie = props => {
     }
 
     return (
-        <button onClick={deleteMovie}>Delete</button>
+        <Button size="small" onClick={deleteMovie}>Delete</Button>
     )
 }
 
 const UpdateMovie = props => {
   return (
-    <Link to={{pathname: `/movies/update/${props.id}`}}><button>Update</button></Link>
+    <Link to={{pathname: `/movies/update/${props.id}`}}><Button size="small">Update</Button></Link>
   )
 }
 
@@ -50,7 +53,7 @@ const MoviesList = () => {
 
   return (
     <div>
-      <table class="table" style={{marginTop:'100px'}}>
+      {/*<table class="table" style={{marginTop:'100px'}}>
         <thead>
           <tr>
             <th scope="col">id</th>
@@ -81,33 +84,41 @@ const MoviesList = () => {
             })
           }
         </tbody>
-      </table>
-      {
-        data.data.data.map((movie, index) => {
-            return (
-              <Card sx={{ maxWidth: 200 }}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://www.gamerfocus.co/wp-content/uploads/2022/02/uncharted_pelicula_exito_taquilla.jpg"
-                  alt="UNCHARTED"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {movie.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {movie.rating}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Share</Button>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
-              </Card>
-            )
-        })
-      }
+      </table>*/}
+      <Container maxWidth="false">
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+            {
+              data.data.data.map((movie, index) => {
+                  return (
+                    <Grid item>
+                      <Card sx={{ maxWidth: 200 }}>
+                        <CardMedia
+                          component="img"
+                          height="140"
+                          image="https://i.blogs.es/89c7de/uncharted-cartel/1366_2000.jpeg"
+                          alt="UNCHARTED"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            {movie.name}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {movie.rating}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <DeleteMovie id={movie._id} />
+                          <UpdateMovie id={movie._id} />
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  )
+              })
+            }
+          </Grid>
+        </Box>
+      </Container>
     </div>
   )
 }
