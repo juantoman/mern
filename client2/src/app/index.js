@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider} from 'react-query'
 
-import { NavBar } from '../components'
+import { ResponsiveAppBar } from '../components'
 import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages/Pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -25,7 +25,7 @@ function App() {
     return (
       <Router>
         <QueryClientProvider client={queryClient}>
-          <NavBar />
+          <ResponsiveAppBar/>
           <Routes>
               <Route path="/movies/list" exact element={<MoviesList/>} />
               <Route path="/movies/create" exact element={<MoviesInsert/>} />
