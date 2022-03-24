@@ -11,6 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom'
+import '../style/menuLink.css'
+
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -27,7 +30,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav("https://www.myclassgame.es");
+    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -35,7 +38,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -76,11 +79,23 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              {/*
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+              */}
+              <Link className="menuLink" to="/movies/list">
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">List</Typography>
+                </MenuItem>
+              </Link>
+              <Link className="menuLink" to="/movies/create">
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Create</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
           <Typography
@@ -89,10 +104,10 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            MySymbaloo
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {/*{pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -100,7 +115,17 @@ const ResponsiveAppBar = () => {
               >
                 {page}
               </Button>
-            ))}
+            ))}*/}
+            <Link to="/movies/list">
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                List
+              </Button>
+            </Link>
+            <Link to="/movies/create">
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Create
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
