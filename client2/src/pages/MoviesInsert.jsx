@@ -29,7 +29,7 @@ const MoviesInsert = () => {
 }
 
   return (
-    <div className='form-group' style={{marginTop:'200px'}}>
+    <div className='form-group'>
         <h1>Create Movie</h1>
 
         {/* <label>Name: </label>

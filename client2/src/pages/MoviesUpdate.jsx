@@ -35,7 +35,7 @@ const MoviesUpdate = () => {
   }
 
   return (
-    <div className='form-group' style={{marginTop:'200px'}}>
+    <div className='form-group'>
         <h1>Update Movie</h1>
 
         {/*<label>Name: </label>

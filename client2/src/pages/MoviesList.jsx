@@ -12,6 +12,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Paper from '@mui/material/Paper';
 
 const DeleteMovie = props => {
 
@@ -87,13 +91,16 @@ const MoviesList = () => {
         </tbody>
       </table>*/}
       <Container maxWidth="false">
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 , m: 1 }}>
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
             {
               data.data.data.map((movie, index) => {
                   return (
                     <Grid item>
-                      <Card sx={{ maxWidth: 200 }}>
+                      <Card sx={{ maxWidth: 200, boxShadow: 5 }}>
+                        <IconButton aria-label="settings">
+                          <MoreVertIcon />
+                        </IconButton>
                         <CardMedia
                           component="img"
                           height="140"
@@ -118,6 +125,32 @@ const MoviesList = () => {
               })
             }
           </Grid>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            '& > :not(style)': {
+              m: 1,
+              width: 128,
+              height: 128,
+            },
+          }}
+        >
+          {
+            data.data.data.map((movie, index) => {
+              return (
+                <Paper elevation={3}>
+                  <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                  </IconButton>
+                  <img src="https://i.blogs.es/89c7de/uncharted-cartel/1366_2000.jpeg" width="100px" />
+                  <DeleteMovie id={movie._id} />
+                  <UpdateMovie id={movie._id} />
+                </Paper>
+              )
+            })
+          }
         </Box>
       </Container>
 
