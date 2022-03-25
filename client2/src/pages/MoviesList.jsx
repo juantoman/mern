@@ -18,6 +18,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Paper from '@mui/material/Paper';
 import BorderRadius from '../components/BorderRadius';
 import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const DeleteMovie = props => {
 
@@ -29,14 +31,18 @@ const DeleteMovie = props => {
             `Do tou want to delete the movie ${props.id} permanently?`,
         )
     ) {
+        //alert(props.id)
         mutate(props.id)
+        //stopPropagation()
         //api.deleteMovieById(props.id)
         //window.location.reload()
     }
     }
 
     return (
-        <Button size="small" onClick={deleteMovie}>Delete</Button>
+      //<MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }} onClick={deleteMovie}/>
+      //<Button size="small" onClick={deleteMovie}>Delete</Button>
+      <span onClick={deleteMovie}>Delete</span>
     )
 }
 
@@ -48,6 +54,15 @@ const UpdateMovie = props => {
 
 const MoviesList = () => {
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
   const {data, error, isError, isLoading } = useQuery('movies', api.getAllMovies)
     // first argument is a string to cache and track the query result
   if(isLoading){
@@ -93,7 +108,8 @@ const MoviesList = () => {
         </tbody>
       </table>*/}
       <Container maxWidth="false">
-        {/*<Box sx={{ flexGrow: 1 , m: 1 }}>
+        {/*
+        <Box sx={{ flexGrow: 1 , m: 1 }}>
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
             {
               data.data.data.map((movie, index) => {
@@ -130,6 +146,7 @@ const MoviesList = () => {
             }
           </Grid>
         </Box>
+        
         <Box
           sx={{
             display: 'flex',
@@ -167,11 +184,33 @@ const MoviesList = () => {
               data.data.data.map((movie, index) => {
                 let a="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + movie.name +"&size=64"
                 return (
-                  <a href={movie.name} target="_blank">
-                    <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}}>
-                      <Avatar variant="square" src={a}>{movie.name}</Avatar>
+                    <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px" , position: 'relative' }}>
+                      <a href={movie.name} target="_blank">
+                        <Avatar variant="square" src={a}>{movie.name}</Avatar>
+                      </a>
+                      <div>
+                        <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }}
+                          id="basic-button"
+                          aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick}
+                        />
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                          }}
+                        >
+                          <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${movie._id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem>
+                          <MenuItem onClick={handleClose}><DeleteMovie id={movie._id} /></MenuItem>
+                        </Menu>
+                      </div>
+                      {/* <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }} /> */}
                     </Box>
-                  </a>
                 )
               })
             }
