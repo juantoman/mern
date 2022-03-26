@@ -52,8 +52,7 @@ const UpdateMovie = props => {
   )
 }
 
-const MoviesList = () => {
-
+const MenuBM = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -62,7 +61,34 @@ const MoviesList = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+  return (
+    <>
+      <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }}
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      />
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${props.id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem>
+        <MenuItem onClick={handleClose}><DeleteMovie id={props.id} /></MenuItem>
+      </Menu>
+    </>
+  )
+
+}
+
+const MoviesList = () => {
+
   const {data, error, isError, isLoading } = useQuery('movies', api.getAllMovies)
     // first argument is a string to cache and track the query result
   if(isLoading){
@@ -146,7 +172,7 @@ const MoviesList = () => {
             }
           </Grid>
         </Box>
-        
+
         <Box
           sx={{
             display: 'flex',
@@ -177,7 +203,7 @@ const MoviesList = () => {
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
             <Link style={{textDecoration:"none"}} to="/movies/create">
               <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}}>
-                <Avatar>+</Avatar>
+                <Avatar sx={{ bgcolor: 'lightblue' }}>+</Avatar>
               </Box>
             </Link>
             {
@@ -188,27 +214,7 @@ const MoviesList = () => {
                       <a href={movie.name} target="_blank">
                         <Avatar variant="square" src={a}>{movie.name}</Avatar>
                       </a>
-                      <div>
-                        <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }}
-                          id="basic-button"
-                          aria-controls={open ? 'basic-menu' : undefined}
-                          aria-haspopup="true"
-                          aria-expanded={open ? 'true' : undefined}
-                          onClick={handleClick}
-                        />
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
-                        >
-                          <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${movie._id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem>
-                          <MenuItem onClick={handleClose}><DeleteMovie id={movie._id} /></MenuItem>
-                        </Menu>
-                      </div>
+                      <MenuBM id={movie._id}/>
                       {/* <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }} /> */}
                     </Box>
                 )
