@@ -20,23 +20,45 @@ import BorderRadius from '../components/BorderRadius';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 const DeleteMovie = props => {
 
     const {isLoadingD, isErrorD, errorD, mutate} = useMutation(api.deleteMovieById, {retry: 3})
 
     const deleteMovie = () => {
-      if (
-        window.confirm(
-            `Do tou want to delete the movie ${props.id} permanently?`,
-        )
-    ) {
+      MySwal.fire({
+        title: 'Delete movie!',
+        text: `Do tou want to delete the movie ${props.id} permanently?`,
+        icon: 'warning',
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          mutate(props.id)
+        }
+      })
+      // if (
+      //   MySwal.fire({
+      //     title: <p>Hello World</p>,
+      //     footer: 'Copyright 2018',
+      //   }).then(() => {
+      //     return MySwal.fire(<p>Shorthand works too2</p>)
+      //   })
+        // window.confirm(
+        //     `Do tou want to delete the movie ${props.id} permanently?`,
+        // )
+    // ) {
         //alert(props.id)
-        mutate(props.id)
+        //mutate(props.id)
         //stopPropagation()
         //api.deleteMovieById(props.id)
         //window.location.reload()
-    }
+    // }
     }
 
     return (
