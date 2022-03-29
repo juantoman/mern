@@ -22,6 +22,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Tooltip from '@mui/material/Tooltip';
+import FormDialog from '../components/FormDialog';
+
 
 const MySwal = withReactContent(Swal)
 
@@ -224,17 +227,21 @@ const MoviesList = () => {
         <Box sx={{ flexGrow: 1 , m: 1 }}>
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
             <Link style={{textDecoration:"none"}} to="/movies/create">
-              <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}}>
-                <Avatar sx={{ bgcolor: 'lightblue' }}>+</Avatar>
-              </Box>
+              <Tooltip title="New movie" arrow>
+                <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}}>
+                  <Avatar sx={{ bgcolor: 'lightblue' }}>+</Avatar>
+                </Box>
+                </Tooltip>
             </Link>
             {
               data.data.data.map((movie, index) => {
                 let a="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + movie.name +"&size=64"
                 return (
-                    <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px" , position: 'relative' }}>
+                    <Box key={movie._id} sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px" , position: 'relative' }}>
                       <a href={movie.name} target="_blank">
+                      <Tooltip title={movie.name} arrow>
                         <Avatar variant="square" src={a}>{movie.name}</Avatar>
+                      </Tooltip>
                       </a>
                       <MenuBM id={movie._id}/>
                       {/* <MoreVertIcon sx={{ fontSize: 15 , position: 'absolute' , top: 3 , right: 0 }} /> */}
@@ -244,6 +251,7 @@ const MoviesList = () => {
             }
           </Grid>
         </Box>
+        <FormDialog/>
       </Container>
 
     </div>

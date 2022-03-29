@@ -7,19 +7,20 @@ import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages/Pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const queryClient = new QueryClient()
+//const queryClient = new QueryClient()
 
-// const queryClient = new QueryClient({
-//   defaultOptions: {
-//     queries: {
-//       refetchOnWindowFocus: true,
-//       refetchOnmount: true,
-//       refetchOnReconnect: true,
-//       retry: true,
-//       staleTime: 1000,
-//     },
-//   },
-// });
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: true,
+      refetchOnmount: true,
+      refetchOnReconnect: true,
+      retry: true,
+      staleTime: 1000,
+      refetchInterval: 1000,
+    },
+  },
+});
 
 function App() {
     return (
