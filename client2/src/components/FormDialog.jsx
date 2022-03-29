@@ -23,9 +23,9 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/*<Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
-      </Button>
+      </Button>*/}
 
         <Tooltip title="New movie" arrow>
           <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}} onClick={handleClickOpen}>
@@ -34,25 +34,40 @@ export default function FormDialog() {
         </Tooltip>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Create Movie</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            Movie dates...
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
+            name="name"
+            label="Movie name"
+            type="text"
             fullWidth
-            variant="standard"
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            name="name"
+            label="Rating"
+            type="number"
+            fullWidth
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            name="time"
+            label="Time"
+            type="number"
+            fullWidth
+            variant="outlined"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>

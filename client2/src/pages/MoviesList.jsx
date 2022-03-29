@@ -43,6 +43,11 @@ const DeleteMovie = props => {
       }).then((result) => {
         if (result.isConfirmed) {
           mutate(props.id)
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
         }
       })
       // if (
@@ -226,13 +231,7 @@ const MoviesList = () => {
         </Box>*/}
         <Box sx={{ flexGrow: 1 , m: 1 }}>
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <Link style={{textDecoration:"none"}} to="/movies/create">
-              <Tooltip title="New movie" arrow>
-                <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}}>
-                  <Avatar sx={{ bgcolor: 'lightblue' }}>+</Avatar>
-                </Box>
-                </Tooltip>
-            </Link>
+            <FormDialog/>
             {
               data.data.data.map((movie, index) => {
                 let a="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + movie.name +"&size=64"
@@ -251,7 +250,6 @@ const MoviesList = () => {
             }
           </Grid>
         </Box>
-        <FormDialog/>
       </Container>
 
     </div>
