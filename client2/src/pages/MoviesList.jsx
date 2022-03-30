@@ -105,13 +105,14 @@ const MenuBM = (props) => {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
+        keepMounted
         onClose={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
         {/* <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${props.id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem> */}
-        <MenuItem><UpdateDialog id={props.id} /></MenuItem>
+        <MenuItem onClick={handleClose}><UpdateDialog id={props.id} /></MenuItem>
         <MenuItem onClick={handleClose}><DeleteMovie id={props.id} /></MenuItem>
       </Menu>
     </>
