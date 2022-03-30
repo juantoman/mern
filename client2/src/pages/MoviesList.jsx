@@ -23,7 +23,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Tooltip from '@mui/material/Tooltip';
-import FormDialog from '../components/FormDialog';
+import CreateDialog from '../components/CreateDialog';
+import UpdateDialog from '../components/UpdateDialog';
 
 
 const MySwal = withReactContent(Swal)
@@ -109,7 +110,8 @@ const MenuBM = (props) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${props.id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem>
+        {/* <MenuItem onClick={handleClose}><Link to={{pathname: `/movies/update/${props.id}`}} style={{textDecoration:"none",color:'black'}}>Update</Link></MenuItem> */}
+        <MenuItem><UpdateDialog id={props.id} /></MenuItem>
         <MenuItem onClick={handleClose}><DeleteMovie id={props.id} /></MenuItem>
       </Menu>
     </>
@@ -231,7 +233,7 @@ const MoviesList = () => {
         </Box>*/}
         <Box sx={{ flexGrow: 1 , m: 1 }}>
           <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <FormDialog/>
+            <CreateDialog/>
             {
               data.data.data.map((movie, index) => {
                 let a="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + movie.name +"&size=64"

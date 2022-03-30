@@ -11,34 +11,45 @@ import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
 import api from '../api'
 import { useMutation } from 'react-query'
+import { useParams } from 'react-router';
+import Swal from 'sweetalert2'
 
-export default function FormDialog() {
+const UpdateDialog = props => {
   const [open, setOpen] = React.useState(false);
 
+  const id = props.id;
   const [movie, setMovie] = useState({});
-  const {isLoading, isError, error, mutate} = useMutation(api.insertMovie, {retry: 3})
-  
+  const {isLoading, isError, error, mutate} = useMutation(api.updateMovieById, {retry: 3})
+
+   useEffect(() => {
+     async function fetchMyAPI() {
+      let loadedMovie = await api.getMovieById(id)
+      setMovie(loadedMovie.data.data)
+    }
+     fetchMyAPI()
+   },[]);
+
+  const handleUpdateMovie = async () => {
+      const { _id, name, rating, time } = movie
+      const arrayTime = time
+      const payload = { name, rating, time: arrayTime }
+
+      mutate({id:id,payload:payload})
+      //window.alert(`Movie updated successfully`)
+      // await api.updateMovieById(id, payload).then(res => {
+      //     window.alert(`Movie updated successfully`)
+      // })
+      Swal.fire(
+        'Saved!',
+        'Movie updated successfully.',
+        'success'
+      )
+      setOpen(false);
+  }
+
   const gestionarCampo = (event) => {
     const { name, value } = event.target;
     setMovie({ ...movie, [name]: value });
-  }
-
-  const handleIncludeMovie = async () => {
-    const { name, rating, time } = movie
-    const arrayTime = time
-    const payload = { name, rating, time: arrayTime }
-
-    mutate(payload)
-    window.alert(`Movie inserted successfully`)
-    {/*await api.insertMovie(payload).then(res => {
-        window.alert(`Movie inserted successfully`)
-        setMovie({
-          name:"",
-          rating:"",
-          time:""
-        })
-    })*/}
-    handleClose()
   }
 
   const handleClickOpen = () => {
@@ -47,7 +58,6 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    setMovie({})
   };
   
 
@@ -57,11 +67,8 @@ export default function FormDialog() {
         Open form dialog
       </Button>*/}
 
-        <Tooltip title="New movie" arrow>
-          <Box sx={{ border: 1, borderRadius: '5px' , m: "10px", p: "20px"}} onClick={handleClickOpen}>
-            <Avatar sx={{ bgcolor: 'lightblue' }}>+</Avatar>
-          </Box>
-        </Tooltip>
+      <span onClick={handleClickOpen}>Update</span>
+
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Movie</DialogTitle>
@@ -103,9 +110,11 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleIncludeMovie}>Save</Button>
+          <Button onClick={handleUpdateMovie}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
+
+export default UpdateDialog
