@@ -6,6 +6,7 @@ import { useMutation } from 'react-query'
 const MoviesInsert = () => {
   const [movie, setMovie] = useState({});
   const {isLoading, isError, error, mutate} = useMutation(api.insertMovie, {retry: 3})
+  
   const gestionarCampo = (event) => {
     const { name, value } = event.target;
     setMovie({ ...movie, [name]: value });
@@ -26,7 +27,7 @@ const MoviesInsert = () => {
           time:""
         })
     })*/}
-}
+  }
 
   return (
     <div className='form-group'>
