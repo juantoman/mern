@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider} from 'react-query'
 
 import { ResponsiveAppBar } from '../components'
 import { MoviesList, MoviesInsert, MoviesUpdate, Presentation } from '../pages/Pages'
+import {Context} from '../components/Context';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -22,18 +23,23 @@ const queryClient = new QueryClient({
   },
 });
 
-
 function App() {
+
+    const [context, setContext] = React.useState(localStorage.getItem("user"));
+
     return (
       <Router>
         <QueryClientProvider client={queryClient}>
-          <ResponsiveAppBar/>
-          <Routes>
-              <Route path="/" exact element={<Presentation/>} />
+          <Context.Provider value={[context, setContext]}>
+            <ResponsiveAppBar/>
+            <h3>{context}</h3>
+            <Routes>
               <Route path="/movies/list" exact element={<MoviesList/>} />
               <Route path="/movies/create" exact element={<MoviesInsert/>} />
               <Route path="/movies/update/:id" exact element={<MoviesUpdate/>} />
-          </Routes>
+              <Route path="/" exact element={<Presentation/>} />
+            </Routes>
+          </Context.Provider>
         </QueryClientProvider>
       </Router>
     )
