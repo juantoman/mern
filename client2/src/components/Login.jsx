@@ -5,14 +5,20 @@ import {Context} from './Context';
 
 function Login() {
 
-  const [SuccessLogin, setSuccessLogin] = React.useState(false);
+  const [SuccessLogin, setSuccessLogin] = React.useState();
   const [context, setContext] = React.useContext(Context);
 
   const history = useNavigate();
 
+  React.useEffect(() => {
+    const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+    const isAuthenticated=userInfo.isAuthenticated
+    setSuccessLogin(isAuthenticated)
+  });
+
   const onSuccessLogin = response => {
     //alert(response.profileObj.email);
-    setSuccessLogin(true)
+    //setSuccessLogin(true)
     const userInfo= {
       isAuthenticated: true,
       email: response.profileObj.email
@@ -24,7 +30,7 @@ function Login() {
 
   const onLogoutSuccess = response => {
     //alert("Logout!!!");
-    setSuccessLogin(false)
+    //setSuccessLogin(false)
     const userInfo= {
       isAuthenticated: false,
       email: ''

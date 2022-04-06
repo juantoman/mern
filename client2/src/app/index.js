@@ -25,15 +25,24 @@ const queryClient = new QueryClient({
 
 function App() {
 
-    const [context, setContext] = React.useState(localStorage.getItem("userInfo"));
-    console.log(JSON.parse({context}))
+
+    const userInfo= {
+      isAuthenticated: false,
+      email: ''
+    }
+    const [context, setContext] = React.useState(userInfo);
+    //console.log({context})
+
+    React.useEffect(() => {
+      setContext(JSON.parse(localStorage.getItem("userInfo")))
+    },[]);
 
     return (
       <Router>
         <QueryClientProvider client={queryClient}>
           <Context.Provider value={[context, setContext]}>
             <ResponsiveAppBar/>
-            <h3>{context}</h3>
+            <h3>{context.email}</h3>
             <Routes>
               <Route path="/movies/list" exact element={<MoviesList/>} />
               <Route path="/movies/create" exact element={<MoviesInsert/>} />
