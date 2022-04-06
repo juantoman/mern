@@ -25,7 +25,8 @@ const queryClient = new QueryClient({
 
 function App() {
 
-    const [context, setContext] = React.useState(localStorage.getItem("user"));
+    const [context, setContext] = React.useState(localStorage.getItem("userInfo"));
+    console.log(JSON.parse({context}))
 
     return (
       <Router>

@@ -13,16 +13,24 @@ function Login() {
   const onSuccessLogin = response => {
     //alert(response.profileObj.email);
     setSuccessLogin(true)
-    localStorage.setItem('user', response.profileObj.email)
-    setContext(localStorage.getItem('user'))
+    const userInfo= {
+      isAuthenticated: true,
+      email: response.profileObj.email
+    }
+    localStorage.setItem('userInfo', JSON.stringify(userInfo))
+    setContext(userInfo)
     history("/movies/list");
   };
 
   const onLogoutSuccess = response => {
     //alert("Logout!!!");
     setSuccessLogin(false)
-    localStorage.setItem('user', '')
-    setContext(localStorage.getItem('user'))
+    const userInfo= {
+      isAuthenticated: false,
+      email: ''
+    }
+    localStorage.setItem('userInfo', JSON.stringify(userInfo))
+    setContext(userInfo)
     history("/");
   };
 
