@@ -1,17 +1,10 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-
 import logo from '../logo.svg'
-
-const Wrapper = styled.a.attrs({
-    className: 'navbar-brand',
-})``
 
 function Logo() {
   return (
-      <Wrapper href="https://myclassgame.es">
-          <img src={logo} width="50" height="50" alt="myclassgame" />
-      </Wrapper>
+      <a className='navbar-brand' href="https://www.myclassgame.es">
+          <img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.myclassgame.es/&size=64" width="50" height="50" alt="myclassgame" />
+      </a>
   )
 }
 

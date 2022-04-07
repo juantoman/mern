@@ -2,6 +2,10 @@ import React from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { useNavigate } from 'react-router-dom'
 import {Context} from './Context';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 function Login() {
 
@@ -31,14 +35,31 @@ function Login() {
   const onLogoutSuccess = response => {
     //alert("Logout!!!");
     //setSuccessLogin(false)
-    const userInfo= {
-      isAuthenticated: false,
-      email: ''
-    }
-    localStorage.setItem('userInfo', JSON.stringify(userInfo))
-    setContext(userInfo)
-    history("/");
-  };
+    MySwal.fire({
+      title: 'Logout!',
+      text: `Do tou want to really logout ?`,
+      icon: 'warning',
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'You are logout',
+          'See you...',
+          'success'
+        ).then(() => {
+          const userInfo= {
+            isAuthenticated: false,
+            email: ''
+          }
+          localStorage.setItem('userInfo', JSON.stringify(userInfo))
+          setContext(userInfo)
+          history("/");
+        })
+      }
+    })
+  }
 
   const onFailure = response => {
     alert("Error!!!");

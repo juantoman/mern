@@ -1,27 +1,14 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-
 import Logo from './Logo'
 import Links from './Links'
 
-const Container = styled.div.attrs({
-    className: 'container-fluid',
-})``
-
-const Nav = styled.nav.attrs({
-    className: 'navbar navbar-expand-lg navbar-dark bg-dark',
-})`
-    margin-bottom: 20 px;
-`
-
 function NavBar() {
     return (
-        <Container>
-            <Nav>
+        <div className='container-fluid'>
+            <nav className='navbar fixed-top navbar-expand-lg navbar-dark bg-dark'>
                 <Logo />
                 <Links />
-            </Nav>
-        </Container>
+            </nav>
+        </div>
 
     )
 }

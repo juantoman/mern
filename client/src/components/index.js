@@ -2,6 +2,6 @@
 import Links from './Links'
 import Logo from './Logo'
 import NavBar from './NavBar'
-import Layout from './Layout'
+import ResponsiveAppBar from './ResponsiveAppBar'
 
-export { Links, Logo, NavBar, Layout }
+export { Links, Logo, NavBar, ResponsiveAppBar }
