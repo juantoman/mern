@@ -20,6 +20,7 @@ services:
       - NODE_ENV=production
     networks:
       - app-network
+
   mongo:
     image: mongo
     volumes:
@@ -40,7 +41,8 @@ services:
     volumes:
         - ./ssl_certs:/var/lib/https-portal
     environment:
-        DOMAINS: 'juantoman.iestacio.com -> http://client:8000 #production'
+        DOMAINS: 'juantoman.iestacio.com -> http://client:8000 #production, juantoman.iestacio.com:3000 -> http://server:3000 #production'
+        FORCE_RENEW: 'true'
     networks:
         - app-network
 
