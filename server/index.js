@@ -5,8 +5,6 @@ const cors = require('cors')
 const db = require('./db')
 const movieRouter = require('./routes/movie-router')
 var router = express.Router();
-const https = require("https");
-const fs = request("fs");
 
 const app = express()
 const apiPort = 3000
@@ -18,15 +16,12 @@ app.use(bodyParser.json())
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get('/', (req, res) => {
-    res.send(`Hello from express server.!`)
+    res.send(`Server2 running on port ${apiPort}!`)
 })
 
 app.use('/api', movieRouter)
 
-https.createServer({
-      key: fs.readFileSync("- ../ssl_certs/account.key"),
-      cert: fs.readFileSync("../ssl_certs/dhparam.pem"),
-    },app).listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
 // will redirect all the non-api routes to react frontend
 router.use(function(req, res) {
