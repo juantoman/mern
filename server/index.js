@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 app.use('/api', movieRouter)
 
 https.createServer({
-      key: fs.readFileSync("- ./ssl_certs/account.key"),
-      cert: fs.readFileSync("./ssl_certs/dhparam.pem"),
+      key: fs.readFileSync("- ../ssl_certs/account.key"),
+      cert: fs.readFileSync("../ssl_certs/dhparam.pem"),
     },app).listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
 // will redirect all the non-api routes to react frontend
