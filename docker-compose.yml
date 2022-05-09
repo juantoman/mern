@@ -11,6 +11,7 @@ services:
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
+      - ./ssl_certs:/var/lib/https-portal
     ports:
       - "3000:3000"
     depends_on:
@@ -41,7 +42,7 @@ services:
     volumes:
         - ./ssl_certs:/var/lib/https-portal
     environment:
-        DOMAINS: 'juantoman.iestacio.com -> http://client:8000 #production, juantoman.iestacio.com:3000 -> http://server:3000 #production'
+        DOMAINS: 'juantoman.iestacio.com -> http://client:8000 #production'
         FORCE_RENEW: 'true'
     networks:
         - app-network
