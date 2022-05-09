@@ -11,7 +11,6 @@ services:
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
-      - ./ssl_certs:/var/lib/https-portal
     ports:
       - "3000:3000"
     depends_on:
@@ -38,7 +37,6 @@ services:
     ports:
         - 80:80
         - 443:443
-        - 3000:3000
     restart: always
     volumes:
         - ./ssl_certs:/var/lib/https-portal
@@ -69,6 +67,7 @@ services:
 networks:
     app-network:
         driver: bridge
+        external: true
 
 volumes:
     data-volume:
