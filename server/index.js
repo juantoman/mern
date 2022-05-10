@@ -6,9 +6,6 @@ const db = require('./db')
 const movieRouter = require('./routes/movie-router')
 var router = express.Router();
 
-const https = require("https");
-const fs = request("fs");
-
 const app = express()
 const apiPort = 3000
 
@@ -24,9 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', movieRouter)
 
-https.createServer({},app).listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
-
-//app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
 // will redirect all the non-api routes to react frontend
 router.use(function(req, res) {
