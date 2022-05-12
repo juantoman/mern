@@ -44,7 +44,7 @@ services:
         DOMAINS: 'www.cocheco.ga -> http://client:8000, api.cocheco.ga -> http://server:3000'
         STAGE: 'production' # Don't use production until staging works
         FORCE_RENEW: 'true'
-        - WEBSOCKET=true
+        WEBSOCKET=true
     networks:
         - app-network
 
