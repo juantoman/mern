@@ -41,7 +41,7 @@ services:
     volumes:
         - ./ssl_certs:/var/lib/https-portal
     environment:
-        DOMAINS: 'www.mysymbaloo.tk -> http://client:8000, api.mysymbaloo.tk -> http://server:3000'
+        DOMAINS: 'juantoman.iestacio.com -> http://client:8000, api.iestacio.com -> http://server:3000'
         STAGE: 'production' # Don't use production until staging works
         FORCE_RENEW: 'true'
     networks:
