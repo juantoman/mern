@@ -17,7 +17,7 @@ services:
       - mongo
     env_file: ./server/.env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     networks:
       - app-network
 
@@ -41,7 +41,7 @@ services:
     volumes:
         - ./ssl_certs:/var/lib/https-portal
     environment:
-        DOMAINS: 'juantoman.iestacio.com -> http://client:8000, api.iestacio.com -> http://server:3000'
+        DOMAINS: 'juantoman.iestacio.com -> http://client:8000 #production, api.iestacio.com -> http://server:3000 #production'
         # STAGE: 'production' # Don't use production until staging works
         # FORCE_RENEW: 'true'
     networks:
