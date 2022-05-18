@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 var URLdomain = window.location.host;
-console.log(URLdomain);
+//console.log(URLdomain);
 
 var baseURL;
 
@@ -11,7 +11,7 @@ if ( URLdomain == "localhost:8000" ) {
     baseURL = "https://api.symbi.ga/api"
 }
 
-console.log(baseURL);
+//console.log(baseURL);
 
 const api = axios.create({
     baseURL: baseURL,

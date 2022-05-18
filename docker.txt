@@ -1,0 +1,2 @@
+#mongo shell del contenedor de mongo
+docker exec -it mern_mongo_1 mongo
