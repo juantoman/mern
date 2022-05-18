@@ -1,7 +1,20 @@
 import axios from 'axios'
 
+var URLdomain = window.location.host;
+console.log(URLdomain);
+
+var baseURL;
+
+if ( URLdomain == "localhost:8000" ) {
+    baseURL = "http://localhost:3000/api"
+} else {
+    baseURL = "https://api.symbi.ga/api"
+}
+
+console.log(baseURL);
+
 const api = axios.create({
-    baseURL: `https://api.symbi.ga/api`,
+    baseURL: baseURL,
 })
 
 export const insertMovie = payload => api.post(`/movie`, payload)
